@@ -8,4 +8,9 @@ export default defineSchema({
     clerkId: v.string(),
     name: v.string(),
   }).index("by_clerkId", ["clerkId"]),
+  userFiles: defineTable({
+    uploadedByUserId: v.id("users"),
+    fileId: v.id("_storage"),
+    fileName: v.string(),
+  }).index("by_uploadedByUserId", ["uploadedByUserId"]),
 });

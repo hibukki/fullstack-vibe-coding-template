@@ -88,6 +88,16 @@ function RootComponent() {
                         >
                           Home
                         </Link>
+                        <Link
+                          to="/files"
+                          className="btn btn-ghost"
+                          activeProps={{
+                            className: "btn btn-ghost btn-active",
+                          }}
+                          onClick={() => setIsSidebarOpen(false)}
+                        >
+                          Files
+                        </Link>
                       </nav>
                     </div>
                     <div className="navbar-end">
@@ -123,6 +133,18 @@ function RootComponent() {
                             className="flex items-center p-2"
                           >
                             Home
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/files"
+                            onClick={() => setIsSidebarOpen(false)}
+                            activeProps={{
+                              className: "active",
+                            }}
+                            className="flex items-center p-2"
+                          >
+                            Files
                           </Link>
                         </li>
                       </ul>
