@@ -1,3 +1,9 @@
+---
+description: Customize application theme using daisyUI
+argument-hint: None required
+allowed-tools: [Read, Edit, WebFetch]
+---
+
 # Customize Theme
 
 Help the user customize their application's theme using daisyUI's theme system.

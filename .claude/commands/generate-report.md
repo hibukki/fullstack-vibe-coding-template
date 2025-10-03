@@ -1,3 +1,9 @@
+---
+description: Generate session report with collaboration insights
+argument-hint: None required
+allowed-tools: [Bash, Read, Write]
+---
+
 # Generate Session Report
 
 Generate a markdown report from the current Claude Code session focusing on generalizable insights about human-AI coding collaboration.

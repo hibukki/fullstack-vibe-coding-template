@@ -1,3 +1,9 @@
+---
+description: Initialize a new application from the Code Bloom template
+argument-hint: None required
+allowed-tools: [Read, Edit, Write, Bash, mcp__playwright__browser_*, mcp__convex__*]
+---
+
 # Initialize New Application
 
 Help a user initialize their new application using this template.

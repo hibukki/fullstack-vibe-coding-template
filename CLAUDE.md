@@ -14,12 +14,11 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 
 ## Git Workflow
 
-- **Commit after each user request**: When completing what the user asked for, immediately commit: `git add -A && git commit -m "[action]: [what was accomplished]"`
-- Commits should happen WITHOUT asking - they're for checkpoints, not cleanliness (will be squashed later)
-- Commits are restore points - if user says something like "let's go back to before X" or "Lets undo that", find the appropriate commit and run `git reset --hard [commit-hash]` to restore the state. Always verify the commit hash via `git log` or `git reflog` first.
-- If you've reset to a previous commit and need to go forward again, use `git reflog` to see all recent commits (including those "lost" by reset), then `git reset --hard [commit-hash]` to jump forward to any commit shown in the reflog.
-- When feature complete and user approves or asks to push perform a squash: run `pnpm run lint` first, check where the remote is with `git log origin/main..HEAD --oneline` to see unpushed commits, then find the first commit for the session/feature, then `git reset --soft [starting-commit]` then commit with `"feat: [complete feature description]"`
-- Before major feature work: Tell user "Starting [feature], will make frequent commits as checkpoints then squash when complete"
+- **Commit when meaningful**: Create commits at logical checkpoints (feature complete, major milestone, before risky changes), not after every user request
+- Use Claude Code's rewind feature for quick undo - no need for checkpoint commits
+- If user requests rollback to specific state, use `git log` or `git reflog` to find commit, then `git reset --hard [commit-hash]`
+- Before pushing: run `pnpm lint` (or rely on PreToolUse hook), review changes with `git diff origin/main`, then commit with descriptive message: `"feat: [complete feature description]"`
+- Commits should be meaningful units of work, not frequent checkpoints
 
 ## Testing & Validation
 

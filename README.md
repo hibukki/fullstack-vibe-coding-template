@@ -13,7 +13,8 @@ For complete setup instructions, usage guides, and deployment information, visit
 ## Quick Start
 
 ```bash
-pnpm run init
+pnpm install
+pnpm dev
 ```
 
 ## Project Structure

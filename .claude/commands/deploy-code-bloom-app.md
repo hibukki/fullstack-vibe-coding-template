@@ -1,3 +1,9 @@
+---
+description: Deploy Code Bloom application to Vercel
+argument-hint: None required
+allowed-tools: [Bash, Read]
+---
+
 # Deploy to Vercel
 
 Guide a user through deploying their application to Vercel
