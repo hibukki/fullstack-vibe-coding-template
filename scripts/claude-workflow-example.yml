@@ -1,3 +1,14 @@
+# Example GitHub Actions workflow for Claude Code with full development environment setup
+#
+# To use this workflow:
+# 1. Copy this file to .github/workflows/claude.yml
+# 2. Replace the existing claude.yml with this version
+# 3. Ensure CLAUDE_CODE_OAUTH_TOKEN secret is set
+# 4. Optionally: Add CONVEX_URL secret if you have an existing Convex deployment
+#
+# This workflow adds pnpm, Node.js setup, and dependency installation before running Claude Code,
+# enabling Claude to run dev servers and test the application.
+
 name: Claude Code (with full setup)
 
 on:
@@ -52,6 +63,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y expect
 
       # Optionally: Set up Convex URL if you have one
+      # Uncomment and add CONVEX_URL to repository secrets
       # - name: Setup Convex URL
       #   run: echo "VITE_CONVEX_URL=${{ secrets.CONVEX_URL }}" >> $GITHUB_ENV
 

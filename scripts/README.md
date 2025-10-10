@@ -84,34 +84,18 @@ export CONVEX_DEPLOYMENT=your-deployment-name
 
 ## GitHub Actions Setup
 
-To use these scripts in GitHub Actions, add to your workflow:
+To use these scripts in GitHub Actions, see the example workflow in `scripts/claude-workflow-example.yml`.
 
-```yaml
-- name: Setup pnpm
-  uses: pnpm/action-setup@v4
-  with:
-    version: 9
+To apply it:
+1. Copy `scripts/claude-workflow-example.yml` to `.github/workflows/claude.yml`
+2. Ensure `CLAUDE_CODE_OAUTH_TOKEN` secret is set
+3. Optionally: Add `CONVEX_URL` secret if you have an existing Convex deployment
 
-- name: Setup Node.js
-  uses: actions/setup-node@v4
-  with:
-    node-version: '20'
-    cache: 'pnpm'
-
-- name: Install dependencies
-  run: pnpm install
-
-# Option A: Use existing deployment
-- name: Setup Convex URL
-  run: echo "VITE_CONVEX_URL=${{ secrets.CONVEX_URL }}" >> $GITHUB_ENV
-
-# Option B: Install expect and use expect script
-- name: Install expect
-  run: sudo apt-get update && sudo apt-get install -y expect
-
-- name: Start dev servers
-  run: pnpm run dev:noninteractive
-```
+The example workflow includes:
+- pnpm and Node.js setup
+- Dependency installation
+- expect installation (for noninteractive Convex)
+- Environment variable configuration
 
 ## Troubleshooting
 
