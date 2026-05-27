@@ -75,11 +75,10 @@ export default tseslint.config(
     },
   },
   {
-    // TanStack Router file-based routes co-locate `export const Route` with the
-    // route component, which this rule flags. v0.5+ has no option covering the
-    // "only a non-component export + local component" case, so disable it here.
+    // TanStack Router routes co-locate `export const Route` with the route
+    // component. shadcn/ui components co-locate variant helpers with components.
     // https://github.com/ArnaudBarre/eslint-plugin-react-refresh
-    files: ["src/routes/**/*.tsx"],
+    files: ["src/routes/**/*.tsx", "src/components/ui/**/*.tsx"],
     rules: { "react-refresh/only-export-components": "off" },
   },
 );
