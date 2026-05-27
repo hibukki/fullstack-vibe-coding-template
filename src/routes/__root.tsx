@@ -24,6 +24,14 @@ import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { api } from "../../convex/_generated/api";
+import { Button } from "@/components/ui/button";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 export const Route = createRootRouteWithContext<{
   queryClient: QueryClient;
@@ -35,10 +43,6 @@ export const Route = createRootRouteWithContext<{
 function RootComponent() {
   const { queryClient, convexClient: convex } = Route.useRouteContext();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
 
   return (
     <ClerkProvider
@@ -52,114 +56,100 @@ function RootComponent() {
           <div className="min-h-screen flex flex-col">
             <Authenticated>
               <EnsureUser />
-              {/* Mobile sidebar drawer */}
-              <div className="drawer min-h-screen">
-                <input
-                  id="drawer-toggle"
-                  type="checkbox"
-                  className="drawer-toggle"
-                  checked={isSidebarOpen}
-                  onChange={toggleSidebar}
-                />
-                <div className="drawer-content container mx-auto flex flex-col h-full">
-                  {/* Navbar */}
-                  <header className="navbar bg-base-100 shadow-sm border-b border-base-300">
-                    <div className="navbar-start">
-                      <label
-                        htmlFor="drawer-toggle"
-                        className="btn btn-square btn-ghost drawer-button lg:hidden mr-2"
+              {/* Navbar */}
+              <header className="border-b bg-background shadow-sm">
+                <div className="container mx-auto flex h-14 items-center px-4">
+                  {/* Mobile menu trigger */}
+                  <Sheet open={isSidebarOpen} onOpenChange={setIsSidebarOpen}>
+                    <SheetTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="mr-2 lg:hidden"
+                        aria-label="Open menu"
                       >
-                        <Menu className="w-5 h-5" />
-                      </label>
-                      <Link
-                        to="/"
-                        className="btn btn-ghost normal-case text-xl"
-                      >
-                        Fullstack Vibe Coding
-                      </Link>
-                    </div>
-                    <div className="navbar-center hidden lg:flex">
-                      <nav className="flex">
+                        <Menu className="size-5" />
+                      </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left" className="w-64">
+                      <SheetHeader>
+                        <SheetTitle>Menu</SheetTitle>
+                      </SheetHeader>
+                      <nav className="flex flex-col gap-2 p-4">
                         <Link
                           to="/"
-                          className="btn btn-ghost"
-                          activeProps={{
-                            className: "btn btn-ghost btn-active",
-                          }}
                           onClick={() => setIsSidebarOpen(false)}
+                          className="rounded-md px-3 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
+                          activeProps={{
+                            className:
+                              "rounded-md px-3 py-2 text-sm font-medium bg-accent text-accent-foreground",
+                          }}
                         >
                           Home
                         </Link>
                       </nav>
-                    </div>
-                    <div className="navbar-end">
-                      <UserButton />
-                    </div>
-                  </header>
-                  {/* Main content */}
-                  <main className="flex-1 p-4 prose prose-invert max-w-none">
-                    <Outlet />
-                  </main>
-                  <footer className="footer footer-center p-4 text-base-content">
-                    <p>© {new Date().getFullYear()} Fullstack Vibe Coding</p>
-                  </footer>
-                </div>
-                {/* Sidebar content for mobile */}
-                <div className="drawer-side z-10">
-                  <label
-                    htmlFor="drawer-toggle"
-                    aria-label="close sidebar"
-                    className="drawer-overlay"
-                  ></label>
-                  <div className="menu p-4 w-64 min-h-full bg-base-200 text-base-content flex flex-col">
-                    <div className="flex-1">
-                      <div className="menu-title mb-4">Menu</div>
-                      <ul className="space-y-2">
-                        <li>
-                          <Link
-                            to="/"
-                            onClick={() => setIsSidebarOpen(false)}
-                            activeProps={{
-                              className: "active",
-                            }}
-                            className="flex items-center p-2"
-                          >
-                            Home
-                          </Link>
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="mt-auto py-4 border-t border-base-300 flex justify-center items-center">
-                      <UserButton />
-                    </div>
+                      <div className="mt-auto border-t p-4 flex justify-center">
+                        <UserButton />
+                      </div>
+                    </SheetContent>
+                  </Sheet>
+
+                  {/* Logo */}
+                  <Link
+                    to="/"
+                    className="text-xl font-semibold hover:opacity-80 transition-opacity"
+                  >
+                    Fullstack Vibe Coding
+                  </Link>
+
+                  {/* Desktop nav */}
+                  <nav className="hidden lg:flex ml-6 gap-1">
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link
+                        to="/"
+                        activeProps={{ className: "bg-accent" }}
+                      >
+                        Home
+                      </Link>
+                    </Button>
+                  </nav>
+
+                  <div className="ml-auto">
+                    <UserButton />
                   </div>
                 </div>
-              </div>
+              </header>
+
+              {/* Main content */}
+              <main className="flex-1 container mx-auto p-4">
+                <Outlet />
+              </main>
+
+              <footer className="border-t py-4 text-center text-sm text-muted-foreground">
+                <p>© {new Date().getFullYear()} Fullstack Vibe Coding</p>
+              </footer>
             </Authenticated>
+
             <Unauthenticated>
-              <header className="navbar bg-base-100 shadow-sm border-b border-base-300">
-                <div className="container mx-auto flex justify-between w-full">
-                  <div className="navbar-start">
-                    <h1 className="font-semibold">Fullstack Vibe Coding</h1>
-                  </div>
-                  <div className="navbar-end">
+              <header className="border-b bg-background shadow-sm">
+                <div className="container mx-auto flex h-14 items-center justify-between px-4">
+                  <h1 className="font-semibold">Fullstack Vibe Coding</h1>
+                  <div className="flex gap-2">
                     <SignInButton mode="modal">
-                      <button className="btn btn-primary btn-sm">
-                        Sign in
-                      </button>
+                      <Button size="sm">Sign in</Button>
                     </SignInButton>
                     <SignUpButton mode="modal">
-                      <button className="btn btn-ghost btn-sm ml-2">
+                      <Button variant="ghost" size="sm">
                         Sign up
-                      </button>
+                      </Button>
                     </SignUpButton>
                   </div>
                 </div>
               </header>
-              <main className="flex-1 container mx-auto p-4 prose prose-invert max-w-none">
+              <main className="flex-1 container mx-auto p-4">
                 <Outlet />
               </main>
-              <footer className="footer footer-center p-4 text-base-content">
+              <footer className="border-t py-4 text-center text-sm text-muted-foreground">
                 <p>© {new Date().getFullYear()} Fullstack Vibe Coding</p>
               </footer>
             </Unauthenticated>

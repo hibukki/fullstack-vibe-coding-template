@@ -5,6 +5,15 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Authenticated, Unauthenticated } from "convex/react";
 import { Zap } from "lucide-react";
 import { api } from "../../convex/_generated/api";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const usersQueryOptions = convexQuery(api.users.listUsers, {});
 
@@ -17,18 +26,18 @@ export const Route = createFileRoute("/")({
 function HomePage() {
   return (
     <div className="text-center">
-      <div className="not-prose flex justify-center mb-4">
+      <div className="flex justify-center mb-4">
         <Zap className="w-16 h-16 text-primary" />
       </div>
-      <h1>Fullstack Vibe Coding</h1>
+      <h1 className="text-3xl font-bold mb-4">Fullstack Vibe Coding</h1>
 
       <Unauthenticated>
-        <p>Sign in to see the list of users.</p>
-        <div className="not-prose mt-4">
-          <SignInButton mode="modal">
-            <button className="btn btn-primary btn-lg">Get Started</button>
-          </SignInButton>
-        </div>
+        <p className="mb-4 text-muted-foreground">
+          Sign in to see the list of users.
+        </p>
+        <SignInButton mode="modal">
+          <Button size="lg">Get Started</Button>
+        </SignInButton>
       </Unauthenticated>
 
       <Authenticated>
@@ -43,32 +52,32 @@ function UsersList() {
 
   return (
     <>
-      <h2>Users</h2>
+      <h2 className="text-2xl font-semibold mb-4">Users</h2>
 
       {users.length === 0 ? (
-        <div className="not-prose">
-          <div className="p-8 bg-base-200 rounded-lg">
-            <p className="opacity-70">No users yet. You're the first!</p>
-          </div>
+        <div className="p-8 bg-muted rounded-lg">
+          <p className="text-muted-foreground">No users yet. You're the first!</p>
         </div>
       ) : (
-        <div className="not-prose overflow-x-auto">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Joined</th>
-              </tr>
-            </thead>
-            <tbody>
+        <div className="overflow-x-auto">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>Joined</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {users.map((user) => (
-                <tr key={user._id}>
-                  <td>{user.name}</td>
-                  <td>{new Date(user._creationTime).toLocaleDateString()}</td>
-                </tr>
+                <TableRow key={user._id}>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell>
+                    {new Date(user._creationTime).toLocaleDateString()}
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       )}
     </>
