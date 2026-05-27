@@ -74,4 +74,12 @@ export default tseslint.config(
       "@typescript-eslint/require-await": "off",
     },
   },
+  {
+    // TanStack Router file-based routes co-locate `export const Route` with the
+    // route component, which this rule flags. v0.5+ has no option covering the
+    // "only a non-component export + local component" case, so disable it here.
+    // https://github.com/ArnaudBarre/eslint-plugin-react-refresh
+    files: ["src/routes/**/*.tsx"],
+    rules: { "react-refresh/only-export-components": "off" },
+  },
 );
