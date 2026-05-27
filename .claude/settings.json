@@ -15,16 +15,13 @@
       "Bash(pnpm lint)",
       "Bash(pnpm dev)",
       "Bash(pnpm test:*)",
-      "Bash(pnpm test:e2e)",
       "Bash(pnpx convex run:*)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "mcp__ide__getDiagnostics",
-      "mcp__playwright",
       "mcp__convex"
     ],
     "deny": []
   },
-  "enabledMcpjsonServers": ["playwright"],
   "enableAllProjectMcpServers": true
 }

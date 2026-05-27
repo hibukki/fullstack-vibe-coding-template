@@ -1,15 +1,5 @@
 {
   "mcpServers": {
-    "playwright": {
-      "command": "pnpx",
-      "args": [
-        "@playwright/mcp@latest",
-        "--browser",
-        "chromium",
-        "--isolated",
-        "--no-sandbox"
-      ]
-    },
     "convex": {
       "command": "pnpm",
       "args": [
