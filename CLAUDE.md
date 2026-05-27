@@ -29,14 +29,10 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 
 - Before pushing:
   - Check background process output for Convex backend errors.
-  - Run `pnpm lint` and `pnpm test:e2e`
+  - Run `pnpm lint`
   - Review with `git diff origin/main` (or whatever branch makes sense)
-- Manual testing: Test UI with Playwright MCP (`mcp__playwright__browser_*`) before writing e2e tests
-  - The playwright mcp server is unreliable, if it doesn't work ask the user to test manually
-- Test account: `claude+clerk_test@example.com`, code `424242`. Use slowly: true / pressSequentially to trigger auto distribution
-- Responsive testing: Use `mcp__playwright__browser_resize` to test mobile (375x667), tablet (768x1024), desktop (1200x800)
-- Debug with `mcp__playwright__browser_console_messages` to view browser console output
-- Add e2e tests only when explicitly requested by user - not proactively
+- Manual UI testing: use the **dev-browser** skill (see the `dev-browser-clerk-testing` skill for signing in, resizing for mobile/tablet/desktop, and reading console output)
+- Test account: `claude+clerk_test@example.com`, code `424242`. Use slowly/pressSequentially to trigger auto distribution
 - Convex in tests: Use `ConvexTestingHelper` for queries/mutations
 - Test cleanup: Use `testingMutation` from `convex/testingFunctions.ts` for cleanup functions - prevents accidental production use
 - If you run into an issue you don't know how to fix, look for relevant documentation or a reference implementation

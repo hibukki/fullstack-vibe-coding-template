@@ -13,8 +13,6 @@ dist-ssr
 *.local
 CLAUDE.local.md
 .pnpm-store
-playwright-report
-test-results
 
 # Editor directories and files
 .idea
@@ -24,8 +22,3 @@ test-results
 *.njsproj
 *.sln
 *.sw?
-
-# Playwright test artifacts
-test-results/
-playwright-report/
-playwright/.cache/

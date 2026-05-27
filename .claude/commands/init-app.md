@@ -23,7 +23,7 @@ Help a user initialize their new application using this template.
 - Set the required environment variables: `pnpm convex env set CLERK_JWT_ISSUER_DOMAIN https://workable-dog-93.clerk.accounts.dev` and `pnpm convex env set IS_TEST true`
 - Remove demo content (user listing, placeholder text) but keep useful layout structure and auth unless explicitly requested otherwise
 - Implement the MVP
-- Test the implementation (install Playwright browser: run `mcp__playwright__browser_install`)
+- Test the implementation
 - Update README.md with the new app name, description, codebase structure. Be concise.
 - commit
 
