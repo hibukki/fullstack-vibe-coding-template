@@ -6,8 +6,8 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 - Development: Run `pnpm dev` with the `run_in_background` parameter to start both frontend and backend servers. Monitor output using the BashOutput tool
 - If `pnpm dev` fails due to requiring interactive input, ask the user to run `pnpm convex dev --once` first in a separate terminal
 - Import alias: `@/` maps to `src/` directory
-- Tailwind CSS 4, daisyUI 5: All config in `src/index.css` via CSS syntax, NOT tailwind.config.js
-- Typography: Uses `@tailwindcss/typography` with `prose prose-invert` at root level, use `not-prose` to escape (e.g., for buttons/tables)
+- Tailwind CSS 4 + shadcn/ui: CSS vars and `@theme inline` in `src/index.css`, no tailwind.config.js
+- Components live in `src/components/ui/` — add new ones with `pnpx shadcn@latest add <name>` or copy from [ui.shadcn.com](https://ui.shadcn.com)
 - Environment variables: Client vars need `VITE_` prefix, Convex vars set in dashboard
 - Package manager: Always use `pnpm` and `pnpx`, NOT `npm` or `npx`
 - See @README.md for project-specific information
@@ -151,67 +151,16 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 - Disable during submit: `<button disabled={!form.state.canSubmit || form.state.isSubmitting}>`
 - Async validation: use `onChangeAsync` for server-side checks
 
-## Styling with DaisyUI
+## Styling with shadcn/ui
 
-### Class Organization
-
-- `component`: Main class (btn), `part`: Child elements (card-title), `style`: Visual variants (btn-outline)
-- `behavior`: State (btn-active), `color`: Colors (btn-primary), `size`: Sizes (btn-lg)
-- `placement`: Position (dropdown-top), `direction`: Orientation (menu-horizontal), `modifier`: Special (btn-wide)
-
-### v4 → v5 Breaking Changes
-
-- artboard / phone-\* → (removed) ➔ use Tailwind w-/h- classes
-- btm-nav / btm-nav-\*/btm-nav-active → dock / dock-\*/dock-active
-- online / offline / placeholder (avatars) → avatar-online / avatar-offline / avatar-placeholder
-- card-bordered → card-border
-- card-compact → (removed) ➔ use card-sm (or card-xs, etc.)
-- .active/.disabled (menus) → menu-active / menu-disabled (add w-full if needed)
-- tabs-bordered / tabs-boxed / tabs-lifted → tabs-border / tabs-box / tabs-lift
-- btn-group / input-group → join + join-item on each child
-- form-control / label-text / label-text-alt → (removed) ➔ use fieldset/legend or new DaisyUI form-group utilities
-- input-bordered / select-bordered / file-input-bordered / textarea-border → (removed) ➔ base classes include border; use –ghost variants for no border
-- footer (horizontal by default) → add footer-horizontal at desired breakpoint
-- .hover on <tr> → (removed) ➔ use Tailwind hover:bg-\* (e.g., hover:bg-base-300)
-- mask-parallelogram / mask-parallelogram-2/3/4 → (removed) ➔ implement with custom CSS
-- .menu (vertical) no longer w-full by default → add w-full if you need full width
-
-### Key or Unfamiliar Components Reference
-
-- When using a component you aren't familiar with, always check its docs page.
-- `dock`: Bottom navigation bar with `dock-label` parts, see [docs](https://daisyui.com/components/dock/)
-- `filter`: Radio button groups with `filter-reset` for clearing selection, see [docs](https://daisyui.com/components/filter/)
-- `list`: Vertical layout for data rows using `list-row` class for each item
-- `fieldset`: Form grouping with `fieldset-legend` for titles and `label` for descriptions
-- `floating-label`: Labels that float above inputs when focused, use as parent wrapper
-- `status`: Tiny status indicators (`status-success`, `status-error`, etc.)
-- `validator`: Automatic form validation styling with `validator-hint` for error messages
-- `theme-controller`: Controls page theme via checkbox/radio with `value="{theme-name}"`
-- `diff`: Side-by-side comparison with `diff-item-1`, `diff-item-2`, `diff-resizer` parts
-- `calendar`: Apply `cally`, `pika-single`, or `react-day-picker` classes to respective libraries
-- `swap`: Toggle visibility of elements using `swap-on`/`swap-off` with checkbox or `swap-active` class
-- [Modal](https://daisyui.com/components/modal/): use with HTML dialog
-- [Drawer](https://daisyui.com/components/drawer/): Grid layout with sidebar toggle using `drawer-toggle` checkbox
-- [Dropdown](https://daisyui.com/components/dropdown/): Details/summary, popover API, or CSS focus methods
-- [Accordion](https://daisyui.com/components/accordion/): Radio inputs for exclusive opening using `collapse` class
-
-### Usage Rules
-
-- Responsive patterns: `lg:menu-horizontal`, `sm:card-horizontal`
-- Prefer daisyUI colors (`bg-primary`) over Tailwind colors (`bg-blue-500`) for theme consistency
-- Use `*-content` colors for text on colored backgrounds
-- Typography plugin adds default margins to headings (h1, h2, h3, etc.) - use `mt-0` to override when precise spacing is needed
-
-### Color System
-
-- Semantic colors: `primary`, `secondary`, `accent`, `neutral`, `base-100/200/300`
-- Status colors: `info`, `success`, `warning`, `error`
-- Each color has matching `-content` variant for contrasting text
-- Custom themes use OKLCH format, create at [theme generator](https://daisyui.com/theme-generator/)
+- Components: copy-owned, live in `src/components/ui/`. Add via `pnpx shadcn@latest add <name>`. See [ui.shadcn.com](https://ui.shadcn.com).
+- Theme: CSS vars in `src/index.css` (`:root` / `.dark`). Customise at [ui.shadcn.com/themes](https://ui.shadcn.com/themes).
+- Dark mode: toggle the `dark` class on `<html>`. The `@custom-variant dark` in `index.css` wires it up.
+- Prefer semantic color tokens (`bg-primary`, `text-muted-foreground`) over raw Tailwind colors.
 
 ## Other Guidelines
 
-- When stuck: check official docs first (docs.convex.dev, tanstack.com, daisyui.com)
+- When stuck: check official docs first (docs.convex.dev, tanstack.com, ui.shadcn.com)
 - Verify responsive design at multiple breakpoints
 - Document non-obvious implementation choices in this file
 - Import icons from `lucide-react`
