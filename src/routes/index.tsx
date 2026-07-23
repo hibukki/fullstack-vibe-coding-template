@@ -27,7 +27,7 @@ function HomePage() {
       <div className="flex justify-center mb-4">
         <Zap className="w-16 h-16 text-primary" />
       </div>
-      <h1 className="text-3xl font-bold mb-4">Fullstack Vibe Coding</h1>
+      <h1 className="text-3xl font-bold mb-4">Code Bloom</h1>
 
       <Unauthenticated>
         <p className="mb-4 text-muted-foreground">
