@@ -27,6 +27,8 @@ export async function getCurrentUserOrCrash(ctx: QueryCtx | MutationCtx) {
   if (!user) {
     throw new ConvexError("Not authenticated");
   }
+
+  return user;
 }
 
 export const ensureUser = mutation({
