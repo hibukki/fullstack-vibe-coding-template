@@ -18,8 +18,6 @@ import {
 const usersQueryOptions = convexQuery(api.users.listUsers, {});
 
 export const Route = createFileRoute("/")({
-  loader: async ({ context: { queryClient } }) =>
-    await queryClient.ensureQueryData(usersQueryOptions),
   component: HomePage,
 });
 

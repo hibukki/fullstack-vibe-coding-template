@@ -65,6 +65,8 @@ export const ensureUser = mutation({
 export const listUsers = query({
   args: {},
   handler: async (ctx) => {
+    await getCurrentUserOrCrash(ctx);
+
     const users = await ctx.db.query("users").collect();
     return users;
   },
