@@ -7,18 +7,12 @@ export async function getCurrentUserOrNull(ctx: QueryCtx | MutationCtx) {
     return null;
   }
 
-  const user = await ctx.db
+  // Null when authenticated but the user row isn't provisioned yet
+  // (first-login race) - this is a normal transient state, not a bug.
+  return await ctx.db
     .query("users")
     .withIndex("by_clerkId", (q) => q.eq("clerkId", identity.subject))
     .unique();
-
-  if (!user) {
-    throw new ConvexError(
-      "Bug: User is authenticated with convex but is missing a record in the DB",
-    );
-  }
-
-  return user;
 }
 
 export async function getCurrentUserOrCrash(ctx: QueryCtx | MutationCtx) {
@@ -65,7 +59,18 @@ export const ensureUser = mutation({
 export const listUsers = query({
   args: {},
   handler: async (ctx) => {
-    await getCurrentUserOrCrash(ctx);
+    const identity = await ctx.auth.getUserIdentity();
+    if (!identity) {
+      throw new ConvexError("Not authenticated");
+    }
+
+    const user = await getCurrentUserOrNull(ctx);
+    if (!user) {
+      // User row not provisioned yet (first login). Inserting it invalidates
+      // this query's read set, so Convex re-runs it and the client transitions
+      // [] -> full list automatically.
+      return [];
+    }
 
     const users = await ctx.db.query("users").collect();
     return users;
