@@ -8,6 +8,8 @@ import "./index.css";
 
 import { env } from "./env";
 import { routeTree } from "./routeTree.gen";
+import { RouteErrorFallback } from "@/components/RouteErrorFallback";
+import { NotFoundFallback } from "@/components/NotFoundFallback";
 
 // Create clients outside of components to avoid recreating them on re-renders
 const convex = new ConvexReactClient(env.VITE_CONVEX_URL);
@@ -39,6 +41,9 @@ const router = createRouter({
   // over the WebSocket): https://tanstack.com/router/latest/docs/framework/react/guide/preloading
   defaultPreload: "intent",
   defaultPreloadStaleTime: 0,
+  // App-wide fallbacks: https://tanstack.com/router/latest/docs/framework/react/guide/not-found-errors
+  defaultErrorComponent: RouteErrorFallback,
+  defaultNotFoundComponent: NotFoundFallback,
   context: {
     queryClient,
     convexClient: convex,
