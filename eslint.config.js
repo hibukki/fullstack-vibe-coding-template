@@ -1,3 +1,4 @@
+import convexPlugin from "@convex-dev/eslint-plugin";
 import js from "@eslint/js";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
@@ -95,4 +96,6 @@ export default tseslint.config(
     files: ["src/routes/**/*.tsx", "src/components/ui/**/*.tsx"],
     rules: { "react-refresh/only-export-components": "off" },
   },
+  // https://docs.convex.dev/eslint
+  ...convexPlugin.configs.recommended,
 );

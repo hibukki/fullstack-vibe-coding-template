@@ -41,8 +41,8 @@ export const ensureUser = mutation({
     if (existingUser) {
       const clerkName = identity.name ?? undefined;
       if (existingUser.name !== clerkName) {
-        await ctx.db.patch(existingUser._id, { name: clerkName });
-        return await ctx.db.get(existingUser._id);
+        await ctx.db.patch("users", existingUser._id, { name: clerkName });
+        return await ctx.db.get("users", existingUser._id);
       }
       return existingUser;
     }
@@ -52,7 +52,7 @@ export const ensureUser = mutation({
       name: identity.name ?? undefined,
     });
 
-    return await ctx.db.get(userId);
+    return await ctx.db.get("users", userId);
   },
 });
 
