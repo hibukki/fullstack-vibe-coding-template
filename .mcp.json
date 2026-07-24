@@ -2,19 +2,12 @@
   "mcpServers": {
     "convex": {
       "command": "pnpm",
-      "args": [
-        "convex",
-        "mcp",
-        "start"
-      ]
+      "args": ["convex", "mcp", "start"]
     },
     "llms-fetch": {
       "type": "stdio",
       "command": "npx",
-      "args": [
-        "-y",
-        "llms-fetch-mcp"
-      ],
+      "args": ["-y", "llms-fetch-mcp"],
       "env": {}
     }
   }

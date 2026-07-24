@@ -16,7 +16,7 @@ export const deleteTestUser = testingMutation({
   args: { name: v.string() },
   handler: async (ctx, { name }) => {
     const users = await ctx.db.query("users").collect();
-    const user = users.find(u => u.name === name);
+    const user = users.find((u) => u.name === name);
     if (user) {
       await ctx.db.delete("users", user._id);
     }

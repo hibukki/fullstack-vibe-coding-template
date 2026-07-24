@@ -106,10 +106,7 @@ function RootComponent() {
                   {/* Desktop nav */}
                   <nav className="hidden lg:flex ml-6 gap-1">
                     <Button variant="ghost" size="sm" asChild>
-                      <Link
-                        to="/"
-                        activeProps={{ className: "bg-accent" }}
-                      >
+                      <Link to="/" activeProps={{ className: "bg-accent" }}>
                         Home
                       </Link>
                     </Button>
