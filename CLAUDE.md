@@ -29,11 +29,11 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 
 - Before pushing:
   - Check background process output for Convex backend errors.
-  - Run `pnpm lint`
+  - Run `pnpm lint` and `pnpm test`
   - Review with `git diff origin/main` (or whatever branch makes sense)
 - Manual UI testing: use the **dev-browser** skill (see the `dev-browser-clerk-testing` skill for signing in, resizing for mobile/tablet/desktop, and reading console output)
 - Test account: `claude+clerk_test@example.com`, code `424242`. Use slowly/pressSequentially to trigger auto distribution
-- Convex in tests: Use `ConvexTestingHelper` for queries/mutations
+- Backend tests: vitest + [convex-test](https://docs.convex.dev/testing/convex-test) (`pnpm test`, or `pnpm test:watch`). See `convex/users.test.ts` for the pattern (`convexTest(schema, modules)`, `t.withIdentity` for auth)
 - Test cleanup: Use `testingMutation` from `convex/testingFunctions.ts` for cleanup functions - prevents accidental production use
 - If you run into an issue you don't know how to fix, look for relevant documentation or a reference implementation
 
