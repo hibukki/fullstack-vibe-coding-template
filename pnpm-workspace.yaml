@@ -1,0 +1,4 @@
+# https://pnpm.io/settings#allowbuilds
+allowBuilds:
+  "@clerk/shared": true
+  esbuild: true
