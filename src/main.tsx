@@ -1,7 +1,7 @@
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { QueryClient } from "@tanstack/react-query";
+import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { ConvexReactClient } from "convex/react";
 import { ConvexQueryClient } from "@convex-dev/react-query";
 import "./index.css";
@@ -12,6 +12,11 @@ import { routeTree } from "./routeTree.gen";
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 const convexQueryClient = new ConvexQueryClient(convex);
 const queryClient = new QueryClient({
+  queryCache: new QueryCache({
+    onError: (error, query) => {
+      console.error("Query error", query.queryKey, error);
+    },
+  }),
   defaultOptions: {
     queries: {
       queryKeyHashFn: convexQueryClient.hashFn(),
