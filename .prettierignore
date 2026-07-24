@@ -6,5 +6,6 @@ build/
 .convex/
 
 convex/_generated/
+src/routeTree.gen.ts
 
 coverage/

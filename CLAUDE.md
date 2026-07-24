@@ -55,6 +55,7 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 - Add `"use node";` to the top of files containing actions that use Node.js built-in modules (can't contain queries and mutations)
 - `"use node";` is NOT needed for fetch, only use it for other Node.js built-ins
 - Convex + Clerk: Always use Convex's auth hooks (`useConvexAuth`) and components (`<Authenticated>`, `<Unauthenticated>`, `<AuthLoading>`) instead of Clerk's hooks/components. This ensures auth tokens are properly validated by the Convex backend.
+- Clerk session ≠ Convex user row exists yet (first-login provisioning race) — read queries should tolerate a missing user (return null/empty); only mutations/post-provisioning code should use `getCurrentUserOrCrash`
 - Import data with `pnpm convex import --table tableName file.json`
 
 ### Function guidelines
@@ -118,10 +119,10 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 ## TanStack Query + Convex Integration
 
 - Use `convexQuery()` from `@convex-dev/react-query` to create query options: `const queryOptions = convexQuery(api.module.function, { status: "active" })`
-- Preload in route loaders: `loader: async ({ context: { queryClient } }) => await queryClient.ensureQueryData(queryOptions)`
+- Public queries: preload in route loaders: `loader: async ({ context: { queryClient } }) => await queryClient.ensureQueryData(queryOptions)`
+- Authed queries (using `ctx.auth`): NO loader preload (loaders run on hard refresh before Clerk restores the session) - fetch via `useSuspenseQuery` inside `<Authenticated>`
 - Use `useSuspenseQuery` in components: `const { data } = useSuspenseQuery(queryOptions)`
 - For mutations, continue using Convex's `useMutation` directly
-- **When adding auth to a query** (`ctx.auth.getUserIdentity()`), update its loader: `if ((window as any).Clerk?.session) await queryClient.ensureQueryData(authQuery)` - otherwise the app crashes on page refresh
 
 ## TanStack Form + Zod v4
 

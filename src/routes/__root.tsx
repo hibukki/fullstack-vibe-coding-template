@@ -99,7 +99,7 @@ function RootComponent() {
                     to="/"
                     className="text-xl font-semibold hover:opacity-80 transition-opacity"
                   >
-                    Fullstack Vibe Coding
+                    Code Bloom
                   </Link>
 
                   {/* Desktop nav */}
@@ -126,14 +126,14 @@ function RootComponent() {
               </main>
 
               <footer className="border-t py-4 text-center text-sm text-muted-foreground">
-                <p>© {new Date().getFullYear()} Fullstack Vibe Coding</p>
+                <p>© {new Date().getFullYear()} Code Bloom</p>
               </footer>
             </Authenticated>
 
             <Unauthenticated>
               <header className="border-b bg-background shadow-sm">
                 <div className="container mx-auto flex h-14 items-center justify-between px-4">
-                  <h1 className="font-semibold">Fullstack Vibe Coding</h1>
+                  <h1 className="font-semibold">Code Bloom</h1>
                   <div className="flex gap-2">
                     <SignInButton mode="modal">
                       <Button size="sm">Sign in</Button>
@@ -150,7 +150,7 @@ function RootComponent() {
                 <Outlet />
               </main>
               <footer className="border-t py-4 text-center text-sm text-muted-foreground">
-                <p>© {new Date().getFullYear()} Fullstack Vibe Coding</p>
+                <p>© {new Date().getFullYear()} Code Bloom</p>
               </footer>
             </Unauthenticated>
           </div>
