@@ -56,21 +56,17 @@ export const ensureUser = mutation({
   },
 });
 
+export const getCurrentUser = query({
+  args: {},
+  handler: async (ctx) => {
+    return await getCurrentUserOrNull(ctx);
+  },
+});
+
 export const listUsers = query({
   args: {},
   handler: async (ctx) => {
-    const identity = await ctx.auth.getUserIdentity();
-    if (!identity) {
-      throw new ConvexError("Not authenticated");
-    }
-
-    const user = await getCurrentUserOrNull(ctx);
-    if (!user) {
-      // User row not provisioned yet (first login). Inserting it invalidates
-      // this query's read set, so Convex re-runs it and the client transitions
-      // [] -> full list automatically.
-      return [];
-    }
+    await getCurrentUserOrCrash(ctx);
 
     const users = await ctx.db.query("users").collect();
     return users;
