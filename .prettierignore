@@ -9,3 +9,5 @@ convex/_generated/
 src/routeTree.gen.ts
 
 coverage/
+
+.claude/
