@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "init": "pnpm install && cp .env.example .env.local && convex login && convex dev --once || true && claude ${RUNNING_IN_CONTAINER:+--dangerously-skip-permissions} '/init-app'",
+    "init": "pnpm install && ([ -f .env.local ] || cp .env.example .env.local) && convex login && convex dev --once && claude ${RUNNING_IN_CONTAINER:+--dangerously-skip-permissions} '/init-app'",
     "dev": "npm-run-all --parallel dev:frontend dev:backend",
     "dev:frontend": "vite --open",
     "dev:backend": "convex dev",

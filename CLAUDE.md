@@ -55,7 +55,8 @@ Always follow the guidelines in this file, unless explicitly told otherwise by t
 - Add `"use node";` to the top of files containing actions that use Node.js built-in modules (can't contain queries and mutations)
 - `"use node";` is NOT needed for fetch, only use it for other Node.js built-ins
 - Convex + Clerk: Always use Convex's auth hooks (`useConvexAuth`) and components (`<Authenticated>`, `<Unauthenticated>`, `<AuthLoading>`) instead of Clerk's hooks/components. This ensures auth tokens are properly validated by the Convex backend.
-- Clerk session ≠ Convex user row exists yet (first-login provisioning race) — read queries should tolerate a missing user (return null/empty); only mutations/post-provisioning code should use `getCurrentUserOrCrash`
+- Backend functions for logged-in users crash on unauthorized callers via `getCurrentUserOrCrash` (never return empty results to hide missing permissions)
+- It's the frontend's responsibility not to call functions it lacks permission for: call them only inside `<AuthenticatedAndProvisioned>` (Clerk session ≠ Convex user row exists yet on first login)
 - Import data with `pnpm convex import --table tableName file.json`
 
 ### Function guidelines

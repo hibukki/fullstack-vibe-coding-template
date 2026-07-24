@@ -2,9 +2,10 @@ import { SignInButton } from "@clerk/clerk-react";
 import { convexQuery } from "@convex-dev/react-query";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
-import { Authenticated, Unauthenticated } from "convex/react";
+import { Unauthenticated } from "convex/react";
 import { Zap } from "lucide-react";
 import { api } from "../../convex/_generated/api";
+import { AuthenticatedAndProvisioned } from "@/components/AuthenticatedAndProvisioned";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -38,9 +39,9 @@ function HomePage() {
         </SignInButton>
       </Unauthenticated>
 
-      <Authenticated>
+      <AuthenticatedAndProvisioned>
         <UsersList />
-      </Authenticated>
+      </AuthenticatedAndProvisioned>
     </div>
   );
 }
