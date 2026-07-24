@@ -17,6 +17,11 @@ const queryClient = new QueryClient({
       queryKeyHashFn: convexQueryClient.hashFn(),
       queryFn: convexQueryClient.queryFn(),
       staleTime: Infinity,
+      // With staleTime Infinity, gcTime is how long an unmounted query keeps its
+      // live Convex WebSocket subscription; the default 5min holds subscriptions
+      // long after navigating away. ~10s still bridges loader-prefetch -> mount.
+      // https://github.com/get-convex/convex-react-query#setup recommends tuning this.
+      gcTime: 10_000,
     },
   },
 });
