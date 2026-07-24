@@ -27,8 +27,12 @@ const queryClient = new QueryClient({
 });
 convexQueryClient.connect(queryClient);
 
-const router = createRouter({ 
+const router = createRouter({
   routeTree,
+  // preloadStaleTime 0 hands staleness to TanStack Query (Convex pushes fresh results
+  // over the WebSocket): https://tanstack.com/router/latest/docs/framework/react/guide/preloading
+  defaultPreload: "intent",
+  defaultPreloadStaleTime: 0,
   context: {
     queryClient,
     convexClient: convex,
