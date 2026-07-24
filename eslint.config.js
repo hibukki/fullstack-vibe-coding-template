@@ -41,6 +41,20 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // https://eslint.org/docs/latest/rules/no-restricted-imports#paths
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "convex/react",
+              importNames: ["useQuery", "useQueries", "usePaginatedQuery"],
+              message:
+                "Use convexQuery(api.module.fn, args) with useSuspenseQuery/useQuery from @tanstack/react-query instead (CLAUDE.md: TanStack Query + Convex Integration). useMutation/useConvexAuth from convex/react are fine.",
+            },
+          ],
+        },
+      ],
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
