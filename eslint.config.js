@@ -1,3 +1,4 @@
+import convexPlugin from "@convex-dev/eslint-plugin";
 import js from "@eslint/js";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
@@ -41,6 +42,20 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      // https://eslint.org/docs/latest/rules/no-restricted-imports#paths
+      "no-restricted-imports": [
+        "error",
+        {
+          paths: [
+            {
+              name: "convex/react",
+              importNames: ["useQuery", "useQueries", "usePaginatedQuery"],
+              message:
+                "Use convexQuery(api.module.fn, args) with useSuspenseQuery/useQuery from @tanstack/react-query instead (CLAUDE.md: TanStack Query + Convex Integration). useMutation/useConvexAuth from convex/react are fine.",
+            },
+          ],
+        },
+      ],
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },
@@ -81,4 +96,6 @@ export default tseslint.config(
     files: ["src/routes/**/*.tsx", "src/components/ui/**/*.tsx"],
     rules: { "react-refresh/only-export-components": "off" },
   },
+  // https://docs.convex.dev/eslint
+  ...convexPlugin.configs.recommended,
 );
