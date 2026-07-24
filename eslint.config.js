@@ -29,6 +29,8 @@ export default tseslint.config(
         ...globals.node,
       },
       parserOptions: {
+        // Without this, nested checkouts (e.g. git worktrees) break parsing: https://tseslint.com/parser-tsconfigrootdir
+        tsconfigRootDir: import.meta.dirname,
         project: [
           "./tsconfig.node.json",
           "./tsconfig.app.json",
