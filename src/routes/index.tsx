@@ -55,7 +55,9 @@ function UsersList() {
 
       {users.length === 0 ? (
         <div className="p-8 bg-muted rounded-lg">
-          <p className="text-muted-foreground">No users yet. You're the first!</p>
+          <p className="text-muted-foreground">
+            No users yet. You're the first!
+          </p>
         </div>
       ) : (
         <div className="overflow-x-auto">
