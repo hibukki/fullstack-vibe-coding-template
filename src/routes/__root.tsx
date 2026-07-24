@@ -24,6 +24,7 @@ import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { api } from "../../convex/_generated/api";
+import { env } from "@/env";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -46,7 +47,7 @@ function RootComponent() {
 
   return (
     <ClerkProvider
-      publishableKey={import.meta.env.VITE_CLERK_PUBLISHABLE_KEY}
+      publishableKey={env.VITE_CLERK_PUBLISHABLE_KEY}
       signUpFallbackRedirectUrl="/"
       signInFallbackRedirectUrl="/"
       afterSignOutUrl="/"

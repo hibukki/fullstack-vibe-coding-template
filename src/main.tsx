@@ -6,10 +6,11 @@ import { ConvexReactClient } from "convex/react";
 import { ConvexQueryClient } from "@convex-dev/react-query";
 import "./index.css";
 
+import { env } from "./env";
 import { routeTree } from "./routeTree.gen";
 
 // Create clients outside of components to avoid recreating them on re-renders
-const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
+const convex = new ConvexReactClient(env.VITE_CONVEX_URL);
 const convexQueryClient = new ConvexQueryClient(convex);
 const queryClient = new QueryClient({
   queryCache: new QueryCache({
