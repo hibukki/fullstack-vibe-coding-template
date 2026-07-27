@@ -63,9 +63,9 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
-      // All of these overrides ease getting into
-      // TypeScript, and can be removed for stricter
-      // linting down the line.
+      // Several rules below are relaxed to ease getting into
+      // TypeScript, and can be tightened for stricter linting
+      // down the line.
 
       // Only warn on unused variables, and ignore variables starting with `_`
       "@typescript-eslint/no-unused-vars": [
@@ -73,11 +73,11 @@ export default tseslint.config(
         { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
       ],
 
-      // Allow escaping the compiler
+      // Disallow escaping the compiler (@ts-ignore / @ts-nocheck etc.)
       "@typescript-eslint/ban-ts-comment": "error",
 
-      // Allow explicit `any`s
-      "@typescript-eslint/no-explicit-any": "off",
+      // Disallow explicit `any` — prefer `unknown` or a precise type
+      "@typescript-eslint/no-explicit-any": "error",
 
       // START: Allow implicit `any`s
       "@typescript-eslint/no-unsafe-argument": "off",
